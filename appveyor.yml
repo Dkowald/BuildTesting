@@ -21,10 +21,10 @@ init:
 - ps: >-
     if ($env:APPVEYOR_REPO_TAG -eq "true")
      {
-       Update-AppveyorBuild -Version "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.{build}"
+       Update-AppveyorBuild -Version "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$(env:APPVEYOR_BUILD_NUMBER)"
      }
      else
       {
         # hard version if no tag ()
-        Update-AppveyorBuild -Version "1.0.1.{build}"
+        Update-AppveyorBuild -Version "1.0.1.$(env:APPVEYOR_BUILD_NUMBER)"
       }
