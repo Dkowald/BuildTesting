@@ -8,7 +8,7 @@ namespace HelloBuild
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello AppVeyor");
+            Console.WriteLine("Hello AppVeyor: branch testing");
             Console.WriteLine($"Assem Version: {AssemblyVersion}");
             Console.WriteLine($"File Version: {FileVersion}");
             Console.WriteLine($"Product Version: {ProductVersion}");
