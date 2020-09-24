@@ -35,7 +35,7 @@ init:
       Update-AppveyorBuild -Version "$productVersion"
       $env:ASSEMBLYBUILDVERSION = $assemblyVersion
 
-  -ps: |
+  - ps: |
      Write-Host "Status"
      Write-Host "Tag Name: '$env:APPVEYOR_REPO_TAG_NAME'"
      Write-Host "PR Number: '$env:APPVEYOR_PULL_REQUEST_NUMBER'"
