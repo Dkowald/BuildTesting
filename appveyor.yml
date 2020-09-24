@@ -26,7 +26,7 @@ init:
 
       if ($env:APPVEYOR_REPO_TAG_NAME -and $env:APPVEYOR_REPO_TAG_NAME.StartsWith("test-v"))
       {
-        buildVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
+        $buildVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
       }
       Write-Host "Set version: '$buildVersion'"
       Update-AppveyorBuild -Version "$buildVersion"
