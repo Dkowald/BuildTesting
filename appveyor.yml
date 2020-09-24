@@ -20,16 +20,16 @@ init:
   - ps: |
       # Set "build version number"
       # credits: https://github.com/appveyor/ci/issues/691
-
+      # Note: build number too big for use in asembly version. 
       # basic version if no tag.
-      $buildVersion = "1.0.0.$($env:APPVEYOR_BUILD_NUMBER)"
-      $shortBuildVersion = "1.0.0.0"
+      $productVersion = "1.0.0.$($env:APPVEYOR_BUILD_NUMBER)"
+      $assemblyVersion = "1.0.0.0"
       if ($env:APPVEYOR_REPO_TAG_NAME -and $env:APPVEYOR_REPO_TAG_NAME.StartsWith("test-v"))
       {
-        $buildVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
-        $shortBuildVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.0"
+        $productVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
+        $assemblyVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.0"
       }
-      Write-Host "Set version: '$buildVersion'"
-      Write-Host "Set short version: '$shortBuildVersion'"
-      Update-AppveyorBuild -Version "$buildVersion"
-      $env:ASSEMBLYBUILDVERSION = $shortBuildVersion
+      Write-Host "Set product version: '$productVersion'"
+      Write-Host "Set assembly version: '$assemblyVersion'"
+      Update-AppveyorBuild -Version "$productVersion"
+      $env:ASSEMBLYBUILDVERSION = $assemblyVersion
