@@ -4,7 +4,7 @@ build:
   verbosity: minimal
 artifacts:
 - path: src/HelloBuild/bin/Release/HelloBuild.exe
-  name: Release
+  name: HelloBuild
 
 # enable patching of AssemblyInfo.* files
 # https://www.appveyor.com/docs/build-configuration/#assemblyinfo-patching
@@ -20,6 +20,7 @@ init:
   - ps: |
       # Set "build version number"
       # credits: https://github.com/appveyor/ci/issues/691
+
       # Note: build number too big for use in asembly version. 
       # basic version if no tag.
       $productVersion = "1.0.0.$($env:APPVEYOR_BUILD_NUMBER)"
