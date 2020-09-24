@@ -11,8 +11,8 @@ artifacts:
 assembly_info:
   patch: true
   file: 'src\**\AssemblyInfo.cs'
-  assembly_version: '{version}'
-  assembly_file_version: '{version}'
+  assembly_version: '$(ASSEMBLYBUILDVERSION)'
+  assembly_file_version: '$(ASSEMBLYBUILDVERSION)'
   assembly_informational_version: '{version}'
 
 
@@ -23,10 +23,13 @@ init:
 
       # basic version if no tag.
       $buildVersion = "1.0.0.$($env:APPVEYOR_BUILD_NUMBER)"
-
+      $shortBuildVersion = "1.0.0.0"
       if ($env:APPVEYOR_REPO_TAG_NAME -and $env:APPVEYOR_REPO_TAG_NAME.StartsWith("test-v"))
       {
         $buildVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
+        $shortBuildVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.0"
       }
       Write-Host "Set version: '$buildVersion'"
+      Write-Host "Set short version: '$shortBuildVersion'"
       Update-AppveyorBuild -Version "$buildVersion"
+      $env:ASSEMBLYBUILDVERSION = $shortBuildVersion
