@@ -20,12 +20,13 @@ init:
   - ps: |
       # Set "build version number"
       # credits: https://github.com/appveyor/ci/issues/691
-      if ($env:APPVEYOR_REPO_TAG_NAME.StartsWith("test-v"))
+
+      # basic version if no tag.
+      $buildVersion = "1.0.0.$($env:APPVEYOR_BUILD_NUMBER)"
+
+      if ($env:APPVEYOR_REPO_TAG_NAME -and $env:APPVEYOR_REPO_TAG_NAME.StartsWith("test-v"))
       {
-        Update-AppveyorBuild -Version "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
+        buildVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
       }
-      else
-      {
-        # basic version if no tag.
-        Update-AppveyorBuild -Version "1.0.0.$($env:APPVEYOR_BUILD_NUMBER)"
-      }
+      Write-Host "Set version: '$buildBVersion'"
+      Update-AppveyorBuild -Version "$buildVersion"
