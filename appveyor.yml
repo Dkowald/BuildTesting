@@ -3,8 +3,9 @@ configuration: Release
 build:
   verbosity: minimal
 artifacts:
-- path: src/HelloBuild/bin/Release/HelloBuild.*
+- path: src/HelloBuild/bin/Release/HelloBuild.exe
   name: Release
+
 # enable patching of AssemblyInfo.* files
 # https://www.appveyor.com/docs/build-configuration/#assemblyinfo-patching
 assembly_info:
@@ -19,8 +20,7 @@ init:
   # Set "build version number"
   # credits: https://github.com/appveyor/ci/issues/691
 - ps: |
-    #Write-Host "1.0.0.$($env:APPVEYOR_BUILD_NUMBER)"
-    if ($env:APPVEYOR_REPO_TAG -eq "true")
+    if ($env:APPVEYOR_REPO_TAG_NAME.StartsWith("test-v"))
     {
       Update-AppveyorBuild -Version "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
     }
