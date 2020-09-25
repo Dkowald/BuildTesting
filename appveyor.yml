@@ -16,7 +16,7 @@ assembly_info:
   assembly_informational_version: '{version}'
 
 environment:
-  secret:
+  MyData:
     secure: XEIbuP+EIXTeIM5CxTppzRWSsG1C6iZx9rS0j6K7mGE=
 
 init:  
@@ -46,6 +46,6 @@ init:
       $env:ASSEMBLYBUILDVERSION = $assemblyVersion
 
   - ps: |      
-      Write-Host "Secret: $env:SECRET"
+      Write-Host "Some data: '$env:MyData'"
 
 
