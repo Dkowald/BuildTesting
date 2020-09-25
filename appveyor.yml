@@ -4,29 +4,48 @@ build:
   verbosity: minimal
 artifacts:
 - path: src/HelloBuild/bin/Release/HelloBuild.exe
-  name: Release
+  name: HelloBuild
 
 # enable patching of AssemblyInfo.* files
 # https://www.appveyor.com/docs/build-configuration/#assemblyinfo-patching
 assembly_info:
   patch: true
   file: 'src\**\AssemblyInfo.cs'
-  assembly_version: '{version}'
-  assembly_file_version: '{version}'
+  assembly_version: '$(ASSEMBLYBUILDVERSION)'
+  assembly_file_version: '$(ASSEMBLYBUILDVERSION)'
   assembly_informational_version: '{version}'
 
+environment:
+  MyData:
+    secure: XEIbuP+EIXTeIM5CxTppzRWSsG1C6iZx9rS0j6K7mGE=
 
 init:  
+  - ps: |
+     Write-Host "Status"
+     Write-Host "Has Tag: '$env:APPVEYOR_REPO_TAG'"
+     Write-Host "Tag Name: '$env:APPVEYOR_REPO_TAG_NAME'"
+     Write-Host "PR Number: '$env:APPVEYOR_PULL_REQUEST_NUMBER'"
+     Write-Host "Repo Branch: '$env:APPVEYOR_REPO_BRANCH'"
+  - cmd: dir
   - ps: |
       # Set "build version number"
       # credits: https://github.com/appveyor/ci/issues/691
 
+      # Note: build number too big for use in asembly version. 
       # basic version if no tag.
-      $buildVersion = "1.0.0.$($env:APPVEYOR_BUILD_NUMBER)"
-
+      $productVersion = "1.0.0.$($env:APPVEYOR_BUILD_NUMBER)"
+      $assemblyVersion = "1.0.0.0"
       if ($env:APPVEYOR_REPO_TAG_NAME -and $env:APPVEYOR_REPO_TAG_NAME.StartsWith("test-v"))
       {
-        $buildVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
+        $productVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.$($env:APPVEYOR_BUILD_NUMBER)"
+        $assemblyVersion = "1.$($env:APPVEYOR_REPO_TAG_NAME.substring(6)).0.0"
       }
-      Write-Host "Set version: '$buildVersion'"
-      Update-AppveyorBuild -Version "$buildVersion"
+      Write-Host "Set product version: '$productVersion'"
+      Write-Host "Set assembly version: '$assemblyVersion'"
+      Update-AppveyorBuild -Version "$productVersion"
+      $env:ASSEMBLYBUILDVERSION = $assemblyVersion
+
+  - ps: |      
+      Write-Host "Some data: '$env:MyData'"
+
+
