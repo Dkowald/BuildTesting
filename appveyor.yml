@@ -15,8 +15,18 @@ assembly_info:
   assembly_file_version: '$(ASSEMBLYBUILDVERSION)'
   assembly_informational_version: '{version}'
 
+environment:
+  secret:
+    secure: XEIbuP+EIXTeIM5CxTppzRWSsG1C6iZx9rS0j6K7mGE=
 
 init:  
+  - ps: |
+     Write-Host "Status"
+     Write-Host "Has Tag: '$env:APPVEYOR_REPO_TAG'"
+     Write-Host "Tag Name: '$env:APPVEYOR_REPO_TAG_NAME'"
+     Write-Host "PR Number: '$env:APPVEYOR_PULL_REQUEST_NUMBER'"
+     Write-Host "Repo Branch: '$env:APPVEYOR_REPO_BRANCH'"
+  - cmd: dir
   - ps: |
       # Set "build version number"
       # credits: https://github.com/appveyor/ci/issues/691
@@ -35,9 +45,7 @@ init:
       Update-AppveyorBuild -Version "$productVersion"
       $env:ASSEMBLYBUILDVERSION = $assemblyVersion
 
-  - ps: |
-     Write-Host "Status"
-     Write-Host "Has Tag: '$env:APPVEYOR_REPO_TAG'"
-     Write-Host "Tag Name: '$env:APPVEYOR_REPO_TAG_NAME'"
-     Write-Host "PR Number: '$env:APPVEYOR_PULL_REQUEST_NUMBER'"
-     Write-Host "Repo Branch: '$env:APPVEYOR_REPO_BRANCH'"
+  - ps: |      
+      Write-Host "Secret: $env:SECRET"
+
+
