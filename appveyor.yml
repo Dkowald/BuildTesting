@@ -48,9 +48,9 @@ init:
       Update-AppveyorBuild -Version "$productVersion"
       $env:ASSEMBLYBUILDVERSION = $assemblyVersion
 
-  - ps: |      
+after_build:
+  - ps: |
       Write-Host "Some data: '$env:MyData'"
   - ps: |
+      #Write the secret to a file
       echo "Some data: '$env:MyData'" >> $env:APPVEYOR_BUILD_FOLDER\MyData.txt
-
-
