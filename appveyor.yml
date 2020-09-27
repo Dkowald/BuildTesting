@@ -6,6 +6,9 @@ artifacts:
 - path: src/HelloBuild/bin/Release/HelloBuild.exe
   name: HelloBuild
 
+- path: $env:APPVEYOR_BUILD_FOLDER\MyData.txt
+  name: MyData
+
 # enable patching of AssemblyInfo.* files
 # https://www.appveyor.com/docs/build-configuration/#assemblyinfo-patching
 assembly_info:
@@ -47,5 +50,7 @@ init:
 
   - ps: |      
       Write-Host "Some data: '$env:MyData'"
+  - ps: |
+      echo "Some data: '$env:MyData'" >> $env:APPVEYOR_BUILD_FOLDER\MyData.txt
 
 
