@@ -9,14 +9,16 @@ artifacts:
 - path: $env:APPVEYOR_BUILD_FOLDER\MyData.txt
   name: MyData
 
-# enable patching of AssemblyInfo.* files
-# https://www.appveyor.com/docs/build-configuration/#assemblyinfo-patching
-assembly_info:
+# enable patching of sdk style csproj files.
+# https://www.appveyor.com/docs/build-configuration/#net-core-csproj-files-patching
+dotnet_csproj:
   patch: true
-  file: 'src\**\AssemblyInfo.cs'
+  file: '**\*.csproj'
+  version: '$(ASSEMBLYBUILDVERSION)'
+  package_version: '{version}'
   assembly_version: '$(ASSEMBLYBUILDVERSION)'
-  assembly_file_version: '$(ASSEMBLYBUILDVERSION)'
-  assembly_informational_version: '{version}'
+  file_version: '$(ASSEMBLYBUILDVERSION)'
+  informational_version: '{version}'
 
 environment:
   MyData:
