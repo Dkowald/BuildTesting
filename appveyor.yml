@@ -7,8 +7,12 @@ artifacts:
 - path: src/HelloBuild/bin/Release/HelloBuild.exe
   name: HelloBuild
 
-- path: $env:APPVEYOR_BUILD_FOLDER\MyData.txt
+- path: ./MyData.txt
   name: MyData
+
+- path: src/OldSchoolWeb/bin/OldSchoolWeb.dll
+  name: OldSchoolWeb
+
 
 # enable patching of sdk style csproj files.
 # https://www.appveyor.com/docs/build-configuration/#net-core-csproj-files-patching
@@ -59,4 +63,4 @@ after_build:
       Write-Host "Some data: '$env:MyData'"
   - ps: |
       #Write the secret to a file
-      echo "Some data: '$env:MyData'" >> $env:APPVEYOR_BUILD_FOLDER\MyData.txt
+      echo "Some data: '$env:MyData'" >> ./MyData.txt
