@@ -5,7 +5,7 @@ shallow_clone: true
 configuration: Release
 
 cache:
-  - '%USERPROFILE%\.nuget\packages -> **/*.csproj'  # project.json cache
+  - '%USERPROFILE%\.nuget\packages -> **\*.csproj'  # project.json cache
 
 build:
   verbosity: minimal
