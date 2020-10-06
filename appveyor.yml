@@ -52,7 +52,7 @@ init:
       $env:ASSEMBLYBUILDVERSION = $assemblyVersion
 
 before_build:
-   - nuget restore
+   - nuget restore src/
 
 after_build:
   - ps: |
