@@ -2,6 +2,7 @@ version: 1.0.{build}
 configuration: Release
 build:
   verbosity: minimal
+
 artifacts:
 - path: src/HelloBuild/bin/Release/HelloBuild.exe
   name: HelloBuild
@@ -49,6 +50,9 @@ init:
       Write-Host "Set assembly version: '$assemblyVersion'"
       Update-AppveyorBuild -Version "$productVersion"
       $env:ASSEMBLYBUILDVERSION = $assemblyVersion
+
+before_build:
+   - nuget restore
 
 after_build:
   - ps: |
