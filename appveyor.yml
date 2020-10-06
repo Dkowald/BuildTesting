@@ -1,10 +1,17 @@
 version: 1.0.{build}
+image: Visual Studio 2019
+platform: Any CPU
+shallow_clone: true
 configuration: Release
+
+cache:
+  - '%USERPROFILE%\.nuget\packages -> **/*.csproj'  # project.json cache
+
 build:
   verbosity: minimal
 
 artifacts:
-- path: src/HelloBuild/bin/Release/HelloBuild.exe
+- path: src/HelloBuild/bin/Release/net461/HelloBuild.exe
   name: HelloBuild
 
 - path: ./MyData.txt
