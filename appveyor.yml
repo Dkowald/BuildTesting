@@ -21,8 +21,8 @@ artifacts:
   name: OldSchoolWeb
 
 services:
-    mssql2014
-    
+    - mssql2017
+
 # enable patching of sdk style csproj files.
 # https://www.appveyor.com/docs/build-configuration/#net-core-csproj-files-patching
 dotnet_csproj:
@@ -46,6 +46,7 @@ init:
      Write-Host "PR Number: '$env:APPVEYOR_PULL_REQUEST_NUMBER'"
      Write-Host "Repo Branch: '$env:APPVEYOR_REPO_BRANCH'"
   - cmd: dir
+  - cmd: sqllocaldb info
   - ps: |
       # Set "build version number"
       # credits: https://github.com/appveyor/ci/issues/691
