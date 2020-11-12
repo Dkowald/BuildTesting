@@ -20,7 +20,9 @@ artifacts:
 - path: src/OldSchoolWeb/bin/OldSchoolWeb.dll
   name: OldSchoolWeb
 
-
+services:
+    mssql2014
+    
 # enable patching of sdk style csproj files.
 # https://www.appveyor.com/docs/build-configuration/#net-core-csproj-files-patching
 dotnet_csproj:
