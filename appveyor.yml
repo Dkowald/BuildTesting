@@ -21,7 +21,7 @@ artifacts:
   name: OldSchoolWeb
 
 services:
-    - mssql2017
+    - net start MSSQL$SQL2019
 
 # enable patching of sdk style csproj files.
 # https://www.appveyor.com/docs/build-configuration/#net-core-csproj-files-patching
