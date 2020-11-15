@@ -11,14 +11,14 @@ build:
   verbosity: minimal
 
 artifacts:
-- path: src/HelloBuild/bin/Release/net461/HelloBuild.exe
-  name: HelloBuild
+  - path: src/HelloBuild/bin/Release/net461/HelloBuild.exe
+    name: HelloBuild
 
-- path: ./MyData.txt
-  name: MyData
+  - path: ./MyData.txt
+    name: MyData
 
-- path: src/OldSchoolWeb/bin/OldSchoolWeb.dll
-  name: OldSchoolWeb
+  - path: src/OldSchoolWeb/bin/OldSchoolWeb.dll
+    name: OldSchoolWeb
 
 services:
     - net start MSSQL$SQL2019
@@ -66,6 +66,7 @@ init:
       $env:ASSEMBLYBUILDVERSION = $assemblyVersion
 
 before_build:
+   - nuget restore src/HelloBuild.sln
    - nuget restore src/
 
 after_build:
